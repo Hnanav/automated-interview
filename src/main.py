@@ -175,7 +175,8 @@ def add_question_to_db(text, category, question_order, origin):
 
 def add_text_to_chatlog(text, origin):
     chatlog = ChatLog()
-    chatlog.chatlog_id = session["CHATLOG_ID"]
+    print("chatlog_id: ", chatlog.chatlog_id)
+    print("session: ", session["CHATLOG_ID"])
     chatlog.body = text
     chatlog.question_id = session["QUESTION_ID"]
     chatlog.answer_id = session["ANSWER_ID"]
@@ -194,6 +195,7 @@ def add_text_to_chatlog(text, origin):
     )
 
     return session["CHATLOG_ID"]
+
 
 
 def add_ai_response(json_response, model_type):
@@ -521,6 +523,7 @@ def get_data():
 
     data = request.get_json()
     user_input = data.get("data")
+    print("input: ", user_input)
     session["ANSWER_ID"] = add_answer_to_db(user_input)
     add_text_to_chatlog(user_input, "USER")
 
