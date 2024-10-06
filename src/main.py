@@ -92,7 +92,6 @@ def create_app():
         username = DB_USERNAME
         # Need to escape characters for the URI
         password = quote_plus(DB_PASSWORD)
-        print("test", password)
         driver = DB_DRIVER
 
         logger.info("Connecting to database...")
@@ -326,10 +325,12 @@ def keep_first_question(input_string):
 
 
 def engage_prober():
-    prober_depersonalized_skill.context["recent_history"] = get_chat_history_as_string(
+    print("engage_prober is calling")
+    recent_history = get_chat_history_as_string(
         recent_only=True
     )
-    prober_depersonalized_skill.context["question_of_interest"] = session["CURRENT_QUESTION"]
+    # prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
+    # prober_depersonalized_skill.context["question_of_interest"] = session["CURRENT_QUESTION"]
     json_response = asyncio.run(get_module_response("prober_depersonalized"))
     try:
         json_response = json.loads(json_response.replace("INTERVIEWER ::", "").strip())
@@ -355,6 +356,7 @@ def engage_prober():
 
 
 def engage_global_active_listener():
+    print("engage_global_active_listener is calling")
     active_listener_global_skill.context["history"] = get_chat_history_as_string()
     json_response = asyncio.run(get_module_response("global_active_listener"))
     try:
@@ -489,10 +491,12 @@ INTERVIEW_SEQUENCE["ACTIVE_LISTENER"] = [
 
 # we want to have a function that we can wait on for retry logic
 def next_step():
-    print(session["INTERACTION_COUNT"])
+    print("INTERACTION_COUNT: ", session["INTERACTION_COUNT"])
     if session["INTERACTION_COUNT"] < len(
+        
         INTERVIEW_SEQUENCE[session["INTERVIEW_TYPE"]]
     ):
+        print("check")
         return INTERVIEW_SEQUENCE[session["INTERVIEW_TYPE"]][
             session["INTERACTION_COUNT"]
         ]()
@@ -558,6 +562,7 @@ def get_data():
 
     try:
         response = next_step()
+        logger.debug(f"Response type: {type(response)}, Response: {response}")
     except TimeoutError as e:
         logger.error(
             "CHATLOG_ID: {} | PARTICIPANT ID: {} | API call failed, retrying".format(
@@ -565,6 +570,7 @@ def get_data():
             )
         )
         logger.error(e)
+        print("TimeoutError")
         return {"response": False, "message": END_OF_STUDY_ERROR_MSG}
     except Exception as e:
         logger.error(
