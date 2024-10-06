@@ -1,5 +1,6 @@
 vinhpham
-src/__pycache__
+__pycache__/
 .env
 flask_sessions
 instance
+src/__pycache__
