@@ -32,7 +32,7 @@ FLUSH PRIVILEGES;
 ```
 
 ```
-CREATE DATABASE promptChat;
+CREATE DATABASE promptchat;
 ```
 
 ```
