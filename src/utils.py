@@ -3,6 +3,8 @@ import colorlog
 from dotenv import load_dotenv
 import os
 import mysql.connector
+import pymysql
+
 
 def setup_logger(context):
     """Return a logger with a default ColoredFormatter."""
@@ -36,19 +38,19 @@ def get_db_credentials():
     load_dotenv()  # Load environment variables from .env file
 
     db_credentials = {
-        "DB_USERNAME": os.environ.get("DBUSERNAME"),
-        "DB_PASSWORD": os.environ.get("DBPASSWORD"),
-        "DB_SERVER": os.environ.get("DBSERVER"),
-        "DB_DRIVER": os.environ.get("DBDRIVER"),
-        "DB_DATABASE": os.environ.get("DBDATABASE"),
-        "DB_SECRET_KEY": os.environ.get("DBSECRETKEY"),
+        "DB_USERNAME": os.getenv("DB_USERNAME"),
+        "DB_PASSWORD": os.getenv("DB_PASSWORD"),
+        "DB_SERVER": os.getenv("DB_SERVER"),
+        "DB_DRIVER": os.getenv("DB_DRIVER"),
+        "DB_DATABASE": os.getenv("DB_DATABASE"),
+        "DB_SECRET_KEY": os.getenv("DB_SECRET_KEY"),
     }
 
     # Log if any credentials are missing
     for key, value in db_credentials.items():
         if value is None:
             logger.error(f"{key} not found in environment variables")
-
+    print(db_credentials)
     return db_credentials
 
 def get_api_credentials():
@@ -78,16 +80,17 @@ except mysql.connector.Error as err:
 except Exception as e:
     logger.error(f"Error: {e}")
 
-
-
-
-import pymysql
+load_dotenv()
+host = os.getenv('DB_HOST')
+user = os.getenv('DB_USERNAME')
+password = os.getenv('DB_PASSWORD')
+database = os.getenv('DB_DATABASE')
 
 connection = pymysql.connect(
-    host='localhost',
-    user='chatbot_user',
-    password='root',
-    database='promptChat'
+    host=host,
+    user=user,
+    password=password,  # replace with your actual password
+    db=database,
 )
 
 try:

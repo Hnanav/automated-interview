@@ -1,16 +1,8 @@
-"""
-Created by Alejandro Cuevas
-(t-alejandroc@microsoft.com / acuevasv@andrew.cmu.edu)
-August 2023
-"""
-
 from flask import Flask, render_template, request, session, flash
 from flask_cors import CORS
 from flask import redirect, url_for
 from urllib.parse import quote_plus
 from flask_session import Session
-
-
 import random
 import json
 import asyncio
@@ -19,12 +11,9 @@ import os
 import mysql.connector
 
 from skills import get_module_response, prober_depersonalized_skill, active_listener_global_skill
-
 from prompts import PROBER_PROMPT_DEPERSONALIZED_FEWSHOT, ACTIVE_LISTENER_GLOBAL
-
 import utils
 from models import db, User, Question, Answer, ChatLog, AIResponse, ChatLogLookup
-
 from question_bank import QUESTIONNAIRE
 
 load_dotenv()
@@ -32,6 +21,7 @@ load_dotenv()
 ## GLOBALS START ##
 LOCAL_DB = os.environ.get("LOCAL_DB")
 LOCAL_DB = True if LOCAL_DB == "True" else False
+print(LOCAL_DB)
  # Convert string to boolean
 BASELINE_FOLLOWUPS = ["Can you elaborate?", "Can you provide an example?"]
 ACTIVE_LISTENER_FIRST_TRANSITION = "Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question."
@@ -57,14 +47,14 @@ ACTIVE_LISTENER_GLOBAL = (
 END_OF_STUDY_ERROR_MSG = "Sorry, it seems like we are experiencing technical issues. If you'd like to retry, please refresh the page. Please note that you will have to start from the beginning. If you'd like to stop, please close the window and input the code: 19420 in the Qualtrics page."
 ## GLOBALS END ##
 
-(
-    DB_PASSWORD,
-    DB_SERVER,
-    DB_USERNAME,
-    DB_DRIVER,
-    DB_DATABASE,
-    DB_SECRET_KEY,
-) = utils.get_db_credentials()
+db_credentials = utils.get_db_credentials()
+DB_USERNAME = db_credentials["DB_USERNAME"]
+DB_PASSWORD = db_credentials["DB_PASSWORD"]
+DB_SERVER = db_credentials["DB_SERVER"]
+DB_DATABASE = db_credentials["DB_DATABASE"]
+DB_DRIVER = db_credentials['DB_DRIVER']
+DB_SECRET_KEY = db_credentials['DB_SECRET_KEY']
+
 
 assert DB_PASSWORD is not None
 assert DB_SERVER is not None
@@ -74,20 +64,25 @@ assert DB_DATABASE is not None
 assert DB_SECRET_KEY is not None, "DB_SECRET_KEY is not set!"
 
 
+
 # Database connection and initialization
 app = Flask(__name__)
+# Cấu hình Flask-Session
+app.config['SESSION_TYPE'] = 'filesystem'  # Đặt SESSION_TYPE ở đây
+app.config['SESSION_FILE_DIR'] = './flask_sessions'
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_KEY_PREFIX'] = 'myapp_'
 CORS(app)
 Session(app)
 
 logger = utils.setup_logger(__name__)
-
 
 def create_app():
     app = Flask(__name__)
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = DB_SECRET_KEY
-
     if LOCAL_DB:
         app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -97,6 +92,7 @@ def create_app():
         username = DB_USERNAME
         # Need to escape characters for the URI
         password = quote_plus(DB_PASSWORD)
+        print("test", password)
         driver = DB_DRIVER
 
         logger.info("Connecting to database...")
@@ -235,9 +231,6 @@ def index():
     return redirect(url_for("user_landing"))
 
 
-# Sample URL: http://localhost:5000/user_landing?sg=bs&req=test
-# Sample URL: http://localhost:5000/user_landing?sg=dp&req=test
-# Sample URL: http://localhost:5000/user_landing?sg=al&req=test
 @app.route("/user_landing", methods=["GET"])
 def user_landing():
     try:
