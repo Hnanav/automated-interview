@@ -1,10 +1,3 @@
-"""
-Created by Alejandro Cuevas
-(t-alejandroc@microsoft.com / acuevasv@andrew.cmu.edu)
-August 2023
-"""
-
-
 from flask_sqlalchemy import SQLAlchemy
 import requests
 

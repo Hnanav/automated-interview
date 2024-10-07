@@ -323,13 +323,15 @@ def keep_first_question(input_string):
 
     return first_question
 
-
 def engage_prober():
     print("engage_prober is calling")
+    global prober_depersonalized_skill
     recent_history = get_chat_history_as_string(
         recent_only=True
     )
-    # prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
+    print("recent_history: ", recent_history)
+    
+    prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
     # prober_depersonalized_skill.context["question_of_interest"] = session["CURRENT_QUESTION"]
     json_response = asyncio.run(get_module_response("prober_depersonalized"))
     try:
