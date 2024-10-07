@@ -374,7 +374,10 @@ def engage_global_active_listener():
     active_listener_global_skill = active_listener_global_skill.replace("{{$history}}", history)
     # active_listener_global_skill.context["history"] = get_chat_history_as_string()
     json_response = asyncio.run(get_module_response("global_active_listener"))
+    print("engage_global_active_listener respone: ", json_response)
     try:
+        if "```json" in json_response:
+            json_response = json_response.replace("```json\n", "").replace("```", "").strip()
         json_response = json.loads(json_response)
         response = json_response["summary"]
         try:
