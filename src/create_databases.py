@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 import datetime
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, Text, TIMESTAMP
+from sqlalchemy import create_engine, Column, Integer, String, Text, TIMESTAMP, DateTime
 load_dotenv()
 # Thay đổi thông tin kết nối dưới đây
 DB_USERNAME = os.getenv("DB_USERNAME")
@@ -64,6 +64,17 @@ class Questions(Base):
     question_order = Column(Integer, nullable=False)  # Thứ tự câu hỏi
     origin = Column(String(50), nullable=False)  # Nguồn gốc câu hỏi
     chatlog_id = Column(Integer)  # ID của chat log
+
+class AIResponse(Base):
+    __tablename__ = 'ai_responses'
+    
+    id = Column(Integer, primary_key=True)
+    chatlog_id = Column(Integer, nullable=False)
+    prompt = Column(Text, nullable=False)
+    response = Column(Text, nullable=False)
+    model_parameters = Column(String(255), nullable=False)  # Use VARCHAR(255) with a length limit
+
+    created_at = Column(DateTime, default=datetime.timezone.utc)
 
 def main():
     # Tạo kết nối đến cơ sở dữ liệu

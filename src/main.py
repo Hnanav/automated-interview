@@ -174,8 +174,6 @@ def add_question_to_db(text, category, question_order, origin):
 
 def add_text_to_chatlog(text, origin):
     chatlog = ChatLog()
-    print("chatlog_id: ", chatlog.chatlog_id)
-    print("session: ", session["CHATLOG_ID"])
     chatlog.body = text
     chatlog.question_id = session["QUESTION_ID"]
     chatlog.answer_id = session["ANSWER_ID"]
@@ -324,21 +322,29 @@ def keep_first_question(input_string):
     return first_question
 
 def engage_prober():
-    print("engage_prober is calling")
     global prober_depersonalized_skill
-    recent_history = get_chat_history_as_string(
-        recent_only=True
-    )
-    print("recent_history: ", recent_history)
+    recent_history = get_chat_history_as_string(recent_only=True)
     
+    # Thay thế thông tin lịch sử gần đây vào kỹ năng
     prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
-    # prober_depersonalized_skill.context["question_of_interest"] = session["CURRENT_QUESTION"]
+
+    # Gọi API để nhận phản hồi từ mô-đun prober
     json_response = asyncio.run(get_module_response("prober_depersonalized"))
+    
     try:
-        json_response = json.loads(json_response.replace("INTERVIEWER ::", "").strip())
-        best_response = json_response["question"]
+        # Làm sạch phản hồi JSON
+        if "```json" in json_response:
+            json_response = json_response.replace("```json\n", "").replace("```", "").strip()
+        
+        # Phân tích cú pháp JSON
+        json_response = json.loads(json_response)
+        
+        # Trích xuất câu hỏi tốt nhất từ phản hồi
+        best_response = json_response.get("question", "No question found.")
         best_response = keep_first_question(best_response)
+
         try:
+            # Thêm phản hồi AI vào nhật ký nếu cần
             add_ai_response(json.dumps(json_response), "prober")
         except Exception as e:
             logger.error(
@@ -346,8 +352,11 @@ def engage_prober():
                     session["CHATLOG_ID"], session["PARTICIPANT_ID"], e
                 )
             )
+        
         return best_response
-    except Exception as e:
+
+    except json.JSONDecodeError as e:
+        # Xử lý lỗi khi phân tích JSON
         logger.error(
             "CHATLOG_ID: {} | PARTICIPANT ID: {} | Prober returned invalid JSON. Error: {}".format(
                 session["CHATLOG_ID"], session["PARTICIPANT_ID"], e
@@ -357,9 +366,13 @@ def engage_prober():
         return "Sorry, I didn't understand that. Could you rephrase?"
 
 
+
 def engage_global_active_listener():
     print("engage_global_active_listener is calling")
-    active_listener_global_skill.context["history"] = get_chat_history_as_string()
+    global active_listener_global_skill
+    history = get_chat_history_as_string()
+    active_listener_global_skill = active_listener_global_skill.replace("{{$history}}", history)
+    # active_listener_global_skill.context["history"] = get_chat_history_as_string()
     json_response = asyncio.run(get_module_response("global_active_listener"))
     try:
         json_response = json.loads(json_response)
@@ -550,7 +563,7 @@ def get_data():
         )
     # We capture the member check response
     if (
-        session["INTERACTION_COUNT"] == 12
+        session["INTERACTION_COUNT"] == 6
         and session["INTERVIEW_TYPE"] == "ACTIVE_LISTENER"
     ):
         session["MEMBER_CHECK_ANSWER"] = user_input

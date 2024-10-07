@@ -1,8 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 import requests
-
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine, Column, Integer, String, Text, TIMESTAMP
+import os
+from dotenv import load_dotenv
+load_dotenv()
 db = SQLAlchemy()
 
+Base = declarative_base()
 
 class User(db.Model):
     __tablename__ = "users"
@@ -122,3 +127,21 @@ class AIModel:
             # Handle any exceptions that occur during the API call
             return f"Error invoking skill: {str(e)}"
 
+# Thay đổi thông tin kết nối dưới đây
+DB_USERNAME = os.getenv("DB_USERNAME")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_DATABASE = os.getenv("DB_DATABASE")
+
+DATABASE_URI = f'mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@localhost/{DB_DATABASE}'
+engine = create_engine(DATABASE_URI)
+Base.metadata.create_all(engine)
+
+
+def main():
+    # Tạo kết nối đến cơ sở dữ liệu
+    engine = create_engine(DATABASE_URI)
+    # Tạo bảng nếu chưa tồn tại
+    Base.metadata.create_all(engine)
+    print("All tables created!")
+
+main()
