@@ -34,8 +34,8 @@ API_RETRY_ERROR_MSG = (
     "It seems like we are having issues with API connectivity. I apologize for that. "
 )
 # Fixed the hardcoded parameters for Prober and Active Listener
-HARDCODED_PARAMS_PROBER = "models/gemini-1.5-pro-latest; temperature=0.5; max_tokens=300"
-HARDCODED_PARAMS_ACTIVE_LISTENER = "models/gemini-1.5-pro-latest; temperature=0.5; max_tokens=300"
+HARDCODED_PARAMS_PROBER = "models/gemini-1.5-pro-latest; temperature=0.5; max_tokens=3000"
+HARDCODED_PARAMS_ACTIVE_LISTENER = "models/gemini-1.5-pro-latest; temperature=0.5; max_tokens=3000"
 PROBER_PROMPT_DEPERSONALIZED_FEWSHOT = (
     PROBER_PROMPT_DEPERSONALIZED_FEWSHOT.replace("{", "")
     .replace("}", "")
@@ -255,6 +255,7 @@ def user_landing():
     session["QUESTION_ID"] = 0
     session["ANSWER_ID"] = 0
     session["BACKGROUND"] = None
+    session["BACKGROUND_QUESTION_COUNT"] = 0  # Keep track of which background question to ask
     session["LAST_INPUT"] = ""
 
     if study_group == "bs":
@@ -324,7 +325,8 @@ def keep_first_question(input_string):
 def engage_prober():
     global prober_depersonalized_skill
     recent_history = get_chat_history_as_string(recent_only=True)
-    
+    #Debug
+    print("Recent History:\n", recent_history)
     # Thay thế thông tin lịch sử gần đây vào kỹ năng
     prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
 
@@ -352,7 +354,6 @@ def engage_prober():
                     session["CHATLOG_ID"], session["PARTICIPANT_ID"], e
                 )
             )
-        
         return best_response
 
     except json.JSONDecodeError as e:
@@ -399,9 +400,34 @@ def engage_global_active_listener():
 
 
 def get_background():
-    return "To begin, could you tell me a bit about your job position and how knowledgeable you are about AI?"
+    # Return a list of background questions
+    return [
+        "Hello! I’m Bare Bear, your interviewer for today, and it's a pleasure to meet you! I’d love to learn a bit about you so we can connect better. What name do you prefer to go by?",
+        "Can you describe your personality according to the Big Five Personality Traits?",
+        "Take a moment to reflect on your overall satisfaction with life by using the Satisfaction With Life Scale.",
+    ]
 
 
+# A new function to handle the next background question
+
+def get_next_background_question():
+    # Ensure we have a variable tracking which background question to ask
+    if "BACKGROUND_QUESTION_COUNT" not in session:
+        session["BACKGROUND_QUESTION_COUNT"] = 0
+    # Get the list of background questions
+    background_questions = get_background()
+
+    # Check if there are more background questions to ask
+    if session["BACKGROUND_QUESTION_COUNT"] < len(background_questions):
+        # Fetch the current question based on BACKGROUND_QUESTION_COUNT
+        response = background_questions[session["BACKGROUND_QUESTION_COUNT"]]
+        # Increment the counter to move to the next question for the next call
+        session["BACKGROUND_QUESTION_COUNT"] += 1
+        return response
+    else:
+        # If all background questions are asked, return None
+        return None
+    
 def get_followup_question():
     if session["INTERVIEW_TYPE"] == "BASELINE":
         response = BASELINE_FOLLOWUPS[session["FOLLOWUP_QUESTION_COUNT"]]
@@ -492,9 +518,14 @@ INTERVIEW_SEQUENCE["DYNAMIC_PROBING"] = [
     get_conclusion,
 ]
 
+# Now we adjust the INTERVIEW_SEQUENCE to use get_next_background_question
 INTERVIEW_SEQUENCE["ACTIVE_LISTENER"] = [
-    get_background,
+    get_next_background_question,  # This will call the next background question
+    get_next_background_question,
+    get_next_background_question,
     get_main_question,
+    get_followup_question,
+    get_followup_question,
     get_followup_question,
     get_followup_question,
     get_main_question,
