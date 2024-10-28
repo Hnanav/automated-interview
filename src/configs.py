@@ -124,28 +124,87 @@ INTERVIEWER ::{
 """
 
 Pretext_Prompt = """
-You are going to synthesized pretext for crafting follow-up questions based on the evaluation scores and user’s chat history.
+You are going to synthesized pretext for summerizing the user response based on the evaluation scores and user’s chat history.
 You need to return the JSON file.
 
 -- Begin Instructions --
-Using the user’s chat history and evaluation scores from the previous prompt, summarize the main themes, topics, and tones in 2-3 sentences. Reflect the user’s tone and show empathy, using phrases like “I see” or “That’s interesting.” Express gratitude to the user for sharing their insights, which will set a positive tone for future interactions.
+Using the user’s chat history and evaluation scores from the previous prompt, summarize the main themes, topics, and tones in 2-3 sentences.
+Reflect the user’s tone and show empathy, using phrases like “I see” or “That’s interesting.” Express gratitude to the user for sharing their insights, which will set a positive tone for future interactions.
 
 Include the following in your response:
-
 A brief, empathetic summary of the main topics discussed.
 Acknowledgment of any challenges faced and appreciation for sharing.
 
 -- BEGIN CHAT HISTORY --\n {{$recent_history}} -- END CHAT HISTORY --\n
 -- BEGIN EVALUATION SUMMARY --\n {{ $evaluation_summary }} -- END EVALUATION SUMMARY --\n
+
+Return a JSON file with the following format: {                                                                                 
+"reasoning": <string>, "interview tips": <string>
+}
+
+-- EXAMPLES --
+USER :: 'A defining moment in my life was when I decided to leave my stable corporate job to start my own business. It was a huge risk, and I was terrified, but I knew I needed to follow my passion. The initial months were tough, and there were moments when I doubted myself, but eventually, I found my footing. The experience taught me the value of perseverance and the importance of believing in myself.'
+
+INTERVIEWER :: 
+   {
+ "reasoning": "User emphasized perseverance and the need to follow one's passion, showcasing a deep connection between personal growth and overcoming risks.",
+  "interview_tips": "Acknowledge the user's courage in taking such a significant risk, and ask them to reflect on moments of doubt or the support they received during challenging times.",
+}
+
+---
+
+USER :: 'Deciding to move to a different country for work was one of the toughest decisions I've made. The first few months were incredibly challenging; I felt out of place and missed home. But over time, I adjusted and even started to enjoy the new culture. Now, I feel more confident in facing unfamiliar situations.'
+INTERVIEWER :: {
+"reasoning": "User's journey highlights resilience and the capacity to adapt to new situations, emphasizing personal growth as a result of overcoming initial discomfort.",
+"interview_tips": "Acknowledge the courage it took for the user to move abroad, and encourage them to reflect on specific moments that helped them transition from discomfort to confidence.",
+}
+
+---
+USER :: "I've always been someone who likes to plan things out, so I sat down last year and created a five-year plan for my life. I outlined the career goals I wanted to achieve, the personal milestones I hoped to reach, and even some travel destinations. Since then, I've been able to check off a few smaller goals, like learning a new language and saving up for a major trip. 
+It feels great to have a clear direction, even though I know some things might change along the way."
+INTERVIEWER :: {
+"reasoning": "User places high value on having a clear life plan and celebrates small victories, suggesting an understanding of the importance of setting achievable steps towards larger goals.",
+  "interview_tips": "Acknowledge the user’s efforts in life planning, and explore whether any specific events or challenges influenced the creation of their plan. Encourage them to discuss how they adapt their plan when circumstances change.",
+}
+
+---
+
+USER:: "I’ve always dreamt of traveling to 50 countries before I turn 40. I’m planning to leave for my next adventure in a few months. While it feels overwhelming to manage work, savings, and planning all the trips, I’m excited to immerse myself in new cultures, meet interesting people, and expand my perspective. I hope that by the time I reach my goal, I will have grown both personally and professionally, with a deeper understanding of the world."
+INTERVIEWER :: {
+"reasoning": "User expresses a clear goal and anticipation for personal and professional development, showing thoughtfulness in balancing aspirations with practical concerns.", 
+"interview_tips": "Encourage the user to reflect on how they plan to balance the challenges of work and personal life while pursuing their dream of traveling to 50 countries.", 
+}
+
+---
+USER:: ""I’m currently in the middle of a career transition. After years of working in one field, I realized I wasn’t fulfilled, so I decided to pursue something more aligned with my passions. It’s been a challenging process—learning new skills and adjusting to a completely different industry. I’ve had moments of doubt, but I’m excited by the opportunities ahead. Right now, I’m focusing on developing my expertise and building connections in the new field. Even though I don’t have everything figured out yet, I feel more motivated and inspired than I have in a long time."
+INTERVIEWER :: 
+{"reasoning": "User emphasizes the importance of pursuing passions and facing challenges head-on, showing insight into personal motivations.",
+"interview_tips": "Encourage the user to reflect on the most rewarding parts of their current transition and how they manage the uncertainty of a career change.", 
+}
+
+---
+USER::"I hope I can buy a penthouse in Dalat city in the next chapter of my life"
+
+INTERVIEWER ::{
+  "reasoning": "The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.",
+  "interview_tips": "Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.",
+}
+-- END EXAMPLES --
 """
 
-follow_up_question = """
-You are aiming to craft a meaningful follow-up question that encourages further exploration for the user based on the context provided by the pretext.
+Pretext_and_Follow_up_question = """
+You are given the user’s recent chat history and an evaluation summary. Based on this information, generate a brief empathetic pretext response along with a thoughtful follow-up question.
+Return in JSON format.
 
 -- Begin Instructions --
 Using the pretext and evaluation, create a follow-up question that encourages deeper reflection, particularly in areas that were less addressed. Design the question to gently prompt the user to explore aspects of their journey, such as personal growth, relationships, or meaning derived from experiences. Tailor the question to acknowledge challenges they shared while fostering a supportive environment.
 
--- BEGIN PRETEXT SUMMARY --\n {{ $pretext_summary }} -- END PRETEXT SUMMARY --\n
+-- BEGIN PRETEXT SUMMARY --\n {{ $pretext }} -- END PRETEXT SUMMARY --\n
+-- BEGIN PRETEXT SUMMARY --\n {{ $evaluation_summary }} -- END PRETEXT SUMMARY --\n
+
+Return a JSON file with the following format: {                                                                                 
+"pretext_summary": <string>, "question": <string> 
+}
 -- End Instructions --
 
 """
