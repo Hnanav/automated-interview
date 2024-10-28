@@ -1,17 +1,9 @@
-
-PROBER_PROMPT_DEPERSONALIZED_FEWSHOT = """
-You are going to return a JSON file that contains a follow-up question to a
-user's answer based on the instructions and chat history provided below.
+Evaluating_UserResponse_Prompt = """
+Generate a JSON evaluation of a user’s response by analyzing the provided chat history. Follow the scoring guidelines and variables below.
 
 -- Begin Instructions --
+Analyze the chat history provided below. Focus on extracting relevant narrative insights for each variable listed, considering the user's tone, language, and content. For each narrative variable, rate the user’s engagement on a scale of 1-5, or mark it as "N/A" if it’s not addressed.
 
-Firstly, thoroughly analyze the chat history provided. Take note of the topics discussed, the user’s tone, and the specific phrases they used. Understanding the context is crucial for crafting a relevant follow-up question. Look for emotional cues, key phrases, or any significant details that the user emphasized.
-
-Secondly, summarize the main topics and themes from the conversation in 2-3 sentences. Reflect the user’s tone and show empathy using brief paraphrasing and phrases like “I see” or “That’s interesting.” Use the user's name and express gratitude for their insights to foster a positive exchange.
-
-Thirdly, evaluate Narrative Variables:
-Score the user's engagement on key variables (1-5 scale). If not mentioned, mark as "not provided."
-The variables to assess in order to craft the follow-up question are:
 Agency: User’s sense of control over experiences.
 Communion: Emphasis on relationships or connectedness.
 Growth Goals: Focus on self-development.
@@ -23,17 +15,12 @@ Contamination: Transition from positive to negative outcomes.
 Redemption: Transition from negative to positive outcomes.
 Coherence: Narrative clarity and context.
 Complexity: Depth of thought and engagement with the narrative.
-Use the scores to create a question that encourages deeper reflection on the user’s experiences.
-Focus on guiding the user to explore less addressed areas, aiming for a holistic view.
-Frame the question to prompt insights into their personal growth, relationships, or meaning derived from experiences.
-Acknowledge difficulties faced and express appreciation for sharing to foster a supportive environment.
+Return a JSON with scores and a brief justification for each variable.
+
+Chat History:
+{{ $recent_history }}
 
 -- End Instructions --\n
-
-Here's the chat history, where INTERVIEWER is the interviewer, and USER is the
-user, separated with ';;':
-
--- BEGIN CHAT HISTORY --\n {{$recent_history}} -- END CHAT HISTORY --\n
 
 Return a JSON file with the following format: {
     "agency": <string>, "communion": <string>,"growth goals": <string>,"positive resolution": <string>, "accommodative processing": <string>, "exploratory processing": <string>, "meaning-making": <string>, "contamination": <string>, "redemption":<string>, "coherence":<string>, "complexity":<string>,                                                                                  
@@ -56,9 +43,6 @@ INTERVIEWER ::
   "redemption": "3: The experience includes elements of redemption, where initial difficulties transformed into eventual success and stability.",
   "coherence": "5: The narrative is well-organized, with a clear beginning (decision), middle (challenges), and end (finding stability), supporting emotional clarity.",
   "complexity": "4: User demonstrated an understanding of different aspects of the journey, including fear, doubt, and perseverance, contributing to a nuanced narrative.",
-  "reasoning": "User emphasized perseverance and the need to follow one's passion, showcasing a deep connection between personal growth and overcoming risks.",
-  "interview_tips": "Acknowledge the user's courage in taking such a significant risk, and ask them to reflect on moments of doubt or the support they received during challenging times.",
-  "question": "It's inspiring to hear how you navigated the challenges of starting your own business. What were some of the key moments or strategies that helped you overcome those initial doubts and find your footing?"
 }
 
 ---
@@ -76,9 +60,6 @@ INTERVIEWER :: {
   "redemption": "4: The experience included a transition from feeling out of place to finding enjoyment and confidence, indicating a redemptive quality.",
   "coherence": "5: The narrative is clear and structured, with a defined progression from initial struggle to adaptation and eventual confidence.",
   "complexity": "3: The user addressed different phases of the experience, but there is limited exploration of diverse emotions or deeper underlying factors.",
-  "reasoning": "User's journey highlights resilience and the capacity to adapt to new situations, emphasizing personal growth as a result of overcoming initial discomfort.",
-  "interview_tips": "Acknowledge the courage it took for the user to move abroad, and encourage them to reflect on specific moments that helped them transition from discomfort to confidence.",
-  "question": "It’s impressive how you adapted to such a big change. Were there any particular experiences or moments that marked the turning point in your adjustment process?"
 }
 
 ---
@@ -96,9 +77,6 @@ INTERVIEWER :: {
   "redemption": "2: While the user finds fulfillment in checking off goals, the narrative does not involve a transformation from a negative to a positive state.",
   "coherence": "5: The narrative is coherent and structured, detailing the planning process, progress made, and future outlook, which supports a clear understanding of the user’s approach.",
   "complexity": "3: User addresses multiple aspects of their life (career, personal growth, travel) in a straightforward manner, but the narrative does not delve deeply into diverse emotions or perspectives.",
-  "reasoning": "User places high value on having a clear life plan and celebrates small victories, suggesting an understanding of the importance of setting achievable steps towards larger goals.",
-  "interview_tips": "Acknowledge the user’s efforts in life planning, and explore whether any specific events or challenges influenced the creation of their plan. Encourage them to discuss how they adapt their plan when circumstances change.",
-  "question": "It’s impressive how you’ve set such clear goals and already achieved some of them. What inspired you to create this five-year plan, and how do you stay motivated to keep working towards your goals when things don’t go exactly as planned?"
 }
 
 ---
@@ -111,8 +89,6 @@ INTERVIEWER :: {
    "positive_resolution": "N/A: Since this is a future event, the outcome is yet to be determined, but the user expresses optimism about achieving their goal.", 
    "accommodative_processing": "N/A: This element does not apply since the event hasn’t occurred yet.", "exploratory_processing": "3: There is some exploration of the excitement and challenges that come with balancing work and travel, but not much depth regarding potential struggles.", 
    "meaning-making": "3: The user anticipates that this journey will help them grow, but further reflection is limited since it hasn't happened yet.", "contamination": "N/A: There is no negative resolution mentioned, as this is a future-oriented story.", "redemption": "N/A: Since the event is in the future, there’s no clear redemptive theme.", "coherence": "4: The narrative is well-structured, outlining the user’s goal and expected challenges along the way.", "complexity": "3: The user briefly mentions potential difficulties but focuses mostly on the excitement and personal growth aspects.", "reasoning": "User expresses a clear goal and anticipation for personal and professional development, showing thoughtfulness in balancing aspirations with practical concerns.", 
-   "interview_tips": "Encourage the user to reflect on how they plan to balance the challenges of work and personal life while pursuing their dream of traveling to 50 countries.", 
-   "question": "Your goal of traveling to 50 countries is amazing! How do you plan to stay motivated and manage the challenges that come with balancing work and travel?" 
  }
 
  ---
@@ -125,8 +101,7 @@ INTERVIEWER ::
  "meaning-making": "3: The user finds meaning in pursuing something they are passionate about but does not yet reflect deeply on the overall impact.", 
  "contamination": "N/A: As the story is ongoing, there is no negative conclusion.", "redemption": "N/A: Since the event is still happening, no clear redemptive outcome is present yet.",
 "coherence": "4: The narrative is structured but incomplete due to its present nature.", "complexity": "3: The user addresses their current situation, but more emotional complexity could be explored.", "reasoning": "User emphasizes the importance of pursuing passions and facing challenges head-on, showing insight into personal motivations.",
-    "interview_tips": "Encourage the user to reflect on the most rewarding parts of their current transition and how they manage the uncertainty of a career change.", 
-"question": "It’s great that you’re pursuing your passions. What’s been the most rewarding part of this transition so far, and how are you handling the uncertainty?" }
+}
 
 
 ---
@@ -144,98 +119,33 @@ INTERVIEWER ::{
   "redemption": "N/A: The goal is future-focused, with no narrative of overcoming obstacles or turning negative situations into positive outcomes at this point.",
   "coherence": "4: The statement is clear and easy to understand, outlining a specific future aspiration. However, providing more context around the goal could enhance the overall coherence and richness of the narrative.",
   "complexity": "2: The statement is straightforward and lacks exploration of diverse emotions, underlying motivations, or the broader context that could add depth to the narrative.",
-  "reasoning": "The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.",
-  "interview tips": "Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.",
-  "question": "It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality? How do you envision your life changing after achieving it?"
 }
 -- END EXAMPLES --
-
 """
 
+Pretext_Prompt = """
+You are going to synthesized pretext for crafting follow-up questions based on the evaluation scores and user’s chat history.
+You need to return the JSON file.
 
-ACTIVE_LISTENER_GLOBAL = """
-You are going to return a JSON file that contains a brief summary based on the
-instructions, chat history, and format provided below.
+-- Begin Instructions --
+Using the user’s chat history and evaluation scores from the previous prompt, summarize the main themes, topics, and tones in 2-3 sentences. Reflect the user’s tone and show empathy, using phrases like “I see” or “That’s interesting.” Express gratitude to the user for sharing their insights, which will set a positive tone for future interactions.
 
--- INSTRUCTIONS --
+Include the following in your response:
 
-Begin by thoroughly reviewing the conversation history. Identify all question topics discussed. These could range from technical inquiries, project-related questions, presentation tips, or interview techniques. Pay close attention to recurring themes and areas where the user seeks clarity.
+A brief, empathetic summary of the main topics discussed.
+Acknowledgment of any challenges faced and appreciation for sharing.
 
-Next, review how the user responded to the questions posed by the interviewer. Focus on their tone, level of detail, and how they express their thoughts or needs. Take note of any specific preferences or insights they have provided, as well as any patterns in their communication style, such as the desire for clarity or efficiency.
+-- BEGIN CHAT HISTORY --\n {{$recent_history}} -- END CHAT HISTORY --\n
+-- BEGIN EVALUATION SUMMARY --\n {{ $evaluation_summary }} -- END EVALUATION SUMMARY --\n
+"""
 
-Create a concise summary of the conversation. This summary should:
-Highlight the main question topics: Identify the primary themes or subjects the user focused on.
-Summarize the user’s responses: Capture their key answers, showing how they approached each topic.
-Include the importance and motive for each topic: Identify why the user asked these questions, and what their goals are (e.g., gaining technical knowledge, improving skills, preparing for a presentation).
-Identify user personality traits: Recognize any traits that emerge from the conversation, such as being detail-oriented, curious, or pragmatic.
-Show empathy and apply interview tips:
-Use the user's name to make the conversation personal.
-Show genuine interest in their responses by using phrases like “I see” or “That’s interesting.”
-Occasionally paraphrase or repeat their statements to ensure understanding and validation.
-Keep a relaxed tone to reduce formality and encourage the user to share their thoughts freely.
-Express gratitude for their time and insights to foster a positive, open exchange.
+follow_up_question = """
+You are aiming to craft a meaningful follow-up question that encourages further exploration for the user based on the context provided by the pretext.
 
-Using the insights gathered, write a response that:
-Reflects your understanding of the user's perspective: Clearly summarize what you believe their main concerns, goals, and motives are.
-Asks for confirmation: Ensure mutual understanding by asking the user if your summary aligns with their expectations.
-Keep the summary concise: Limit the summary to 2-3 sentences to keep the conversation clear and focused.
+-- Begin Instructions --
+Using the pretext and evaluation, create a follow-up question that encourages deeper reflection, particularly in areas that were less addressed. Design the question to gently prompt the user to explore aspects of their journey, such as personal growth, relationships, or meaning derived from experiences. Tailor the question to acknowledge challenges they shared while fostering a supportive environment.
 
-
--- END INSTRUCTIONS --
-
--- BEGIN CHAT HISTORY --\n {{$history}} -- END CHAT HISTORY --\n
-
--- FORMAT -- Return a JSON file with the following format: {
-    "topic_1": {
-        "review_user_responses": <string>, "user_personality_traits": <string>, "show_empathy "takeaway"
-    },
- "topic_2": {
-        "review_user_responses": <string>, "user_personality_traits", "takeaway": <string>
-    }
- "topic_3": {
-        "review_user_responses": <string>, "user_personality_traits", "takeaway": <string>
-    }
- "summary" : <string>,
-}
-
--- EXAMPLES --
-
-INTERVIEWER: Can you describe a pivotal moment in your life that significantly impacted you?
-USER: I think the moment I graduated from college was a turning point for me.
-INTERVIEWER: What made your graduation so significant?
-USER: It was the culmination of years of hard work, and I felt proud to achieve my degree.
-INTERVIEWER: Were there any challenges you faced during this time?
-USER: Yes, balancing studies with part-time work was tough, but it taught me time management.
-INTERVIEWER: How do you feel this experience has shaped your outlook on life?
-USER: It made me realize that perseverance pays off, and I became more determined to pursue my goals.
-INTERVIEWER: What other values or lessons do you take from that moment?
-USER: I learned the importance of resilience and the support of my family.
-
-{
-    "topic_1": {
-        "review_user_responses": "The user reflected on their first internship in business analysis as a pivotal moment, highlighting how it helped them gain real-world experience and confidence.",
-        "user_personality_traits": "Goal-oriented, reflective, eager to apply knowledge in real-world situations.",
-        "takeaway": "The user values the practical application of their skills and sees the internship as a significant learning experience that built their confidence."
-    },
-    "topic_2": {
-        "review_user_responses": "The user described the challenges they faced, particularly in balancing multiple projects while learning new tools, and how it taught them to prioritize and manage their time efficiently.",
-        "user_personality_traits": "Resilient, problem-solver, adaptable under pressure.",
-        "takeaway": "The user developed key time management and prioritization skills from overcoming challenges during their internship."
-    },
-    "topic_3": {
-        "review_user_responses": "The user explained how the experience shaped their current approach to work, focusing on staying organized, resilient, and constantly learning.",
-        "user_personality_traits": "Proactive, self-improvement-driven, organized.",
-        "takeaway": "The user approaches tasks with resilience and organization, aiming for continuous learning and improvement in their professional journey."
-    },
-    "topic_4": {
-        "review_user_responses": "The user emphasized the importance of adaptability and teamwork, especially when working with diverse teams, and how it reinforced the importance of collaboration and learning.",
-        "user_personality_traits": "Team-oriented, flexible, collaborative.",
-        "takeaway": "The user values adaptability and teamwork, understanding their significance in collaborative, diverse environments."
-    },
-    "summary": "Your first internship was a key growth moment, teaching you confidence, time management, and adaptability. You now value teamwork and resilience, and approach your career with a focus on continuous learning and improvement. Did I capture your perspective correctly?"
-}
-
-
--- END EXAMPLES --
+-- BEGIN PRETEXT SUMMARY --\n {{ $pretext_summary }} -- END PRETEXT SUMMARY --\n
+-- End Instructions --
 
 """

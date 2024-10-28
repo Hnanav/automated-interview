@@ -67,21 +67,12 @@ async def get_module_response(module_name, no_api_calls=False):
     logger.warning(f"Attempting API call for module: '{module_name}'")
     if no_api_calls:
         return f"We invoked {module_name}"
-    
     response = None
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')  # Specify your model here
+        model = genai.GenerativeModel('gemini-1.5-flash') 
         if module_name == "prober_depersonalized":
-            # response = await asyncio.wait_for(
-            #     model.generate_content(prober_depersonalized_skill),
-            #     timeout=MAX_API_TIMEOUT,
-            # )
             response = model.generate_content(prober_depersonalized_skill)
         elif module_name == "global_active_listener":
-            # response = await asyncio.wait_for(
-            #     model.generate_content(active_listener_global_skill),
-            #     timeout=MAX_API_TIMEOUT,
-            # )
             response = model.generate_content(active_listener_global_skill)
         
         logger.info("Module name: %s | Response: %s", module_name, response)

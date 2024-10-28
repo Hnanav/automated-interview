@@ -9,19 +9,18 @@ import asyncio
 from dotenv import load_dotenv
 import os
 import mysql.connector
+from models import db, User, Question, Answer, ChatLog, AIResponse, ChatLogLookup
+import utils
 
 from skills import get_module_response, prober_depersonalized_skill, active_listener_global_skill
 from prompts import PROBER_PROMPT_DEPERSONALIZED_FEWSHOT, ACTIVE_LISTENER_GLOBAL
-import utils
-from models import db, User, Question, Answer, ChatLog, AIResponse, ChatLogLookup
+from configs import *
 from question_bank import QUESTIONNAIRE
-
 load_dotenv()
 
 ## GLOBALS START ##
 LOCAL_DB = os.environ.get("LOCAL_DB")
 LOCAL_DB = True if LOCAL_DB == "True" else False
-print(LOCAL_DB)
  # Convert string to boolean
 BASELINE_FOLLOWUPS = ["Can you elaborate?", "Can you provide an example?"]
 ACTIVE_LISTENER_FIRST_TRANSITION = "Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question."
@@ -45,7 +44,6 @@ ACTIVE_LISTENER_GLOBAL = (
     ACTIVE_LISTENER_GLOBAL.replace("{", "").replace("}", "").replace("$", "")
 )
 END_OF_STUDY_ERROR_MSG = "Sorry, it seems like we are experiencing technical issues. If you'd like to retry, please refresh the page. Please note that you will have to start from the beginning. If you'd like to stop, please close the window and input the code: 19420 in the Qualtrics page."
-## GLOBALS END ##
 
 db_credentials = utils.get_db_credentials()
 DB_USERNAME = db_credentials["DB_USERNAME"]
@@ -64,23 +62,19 @@ assert DB_DATABASE is not None
 assert DB_SECRET_KEY is not None, "DB_SECRET_KEY is not set!"
 
 
-
 # Database connection and initialization
 app = Flask(__name__)
-# Cấu hình Flask-Session
-app.config['SESSION_TYPE'] = 'filesystem'  # Đặt SESSION_TYPE ở đây
+app.config['SESSION_TYPE'] = 'filesystem'  
 app.config['SESSION_FILE_DIR'] = './flask_sessions'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
 app.config['SESSION_KEY_PREFIX'] = 'myapp_'
 CORS(app)
 Session(app)
-
 logger = utils.setup_logger(__name__)
 
 def create_app():
     app = Flask(__name__)
-
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = DB_SECRET_KEY
     if LOCAL_DB:
@@ -114,8 +108,6 @@ def create_app():
 
 
 app = create_app()
-
-
 @app.route("/init_db")
 def init_db():
     with app.app_context():
@@ -168,9 +160,7 @@ def add_question_to_db(text, category, question_order, origin):
             session["CHATLOG_ID"], session["PARTICIPANT_ID"], question.id
         )
     )
-
     return question.id
-
 
 def add_text_to_chatlog(text, origin):
     chatlog = ChatLog()
@@ -190,9 +180,7 @@ def add_text_to_chatlog(text, origin):
             session["CHATLOG_ID"], session["PARTICIPANT_ID"], text
         )
     )
-
     return session["CHATLOG_ID"]
-
 
 
 def add_ai_response(json_response, model_type):
@@ -269,7 +257,6 @@ def user_landing():
     session["QUESTIONS_TO_ASK"] = random.sample(list(QUESTIONNAIRE.keys()), 3)
     session["MAIN_QUESTION_COUNT"] = 0
     session["FOLLOWUP_QUESTION_COUNT"] = 0
-
     session["CHATLOG"] = []
     session["RECENT_CHATLOG"] = []
 
@@ -305,31 +292,29 @@ def get_chat_history_as_string(recent_only=False):
         chatlog = session["RECENT_CHATLOG"]
     else:
         chatlog = session["CHATLOG"]
-
     return "\n".join(chatlog)
 
 
 def keep_first_question(input_string):
     # Split the string based on '?' character
     parts = input_string.split("?")
-
     # If there are multiple '?' characters, keep the first question
     if len(parts) > 1:
         first_question = parts[0] + "?"
     else:
         # If there's only one '?' or none, keep the original string
         first_question = input_string
-
     return first_question
 
 def engage_prober():
     global prober_depersonalized_skill
     recent_history = get_chat_history_as_string(recent_only=True)
     #Debug
+    print("engage_prober is calling")
     print("Recent History:\n", recent_history)
     # Thay thế thông tin lịch sử gần đây vào kỹ năng
     prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
-
+    print("prober depersonalized skill: ", prober_depersonalized_skill)
     # Gọi API để nhận phản hồi từ mô-đun prober
     json_response = asyncio.run(get_module_response("prober_depersonalized"))
     
@@ -365,7 +350,6 @@ def engage_prober():
         )
         logger.error(json_response)
         return "Sorry, I didn't understand that. Could you rephrase?"
-
 
 
 def engage_global_active_listener():
@@ -409,7 +393,6 @@ def get_background():
 
 
 # A new function to handle the next background question
-
 def get_next_background_question():
     # Ensure we have a variable tracking which background question to ask
     if "BACKGROUND_QUESTION_COUNT" not in session:
@@ -444,7 +427,6 @@ def get_followup_question():
 def get_main_question():
     # Reset the recent chatlog
     session["RECENT_CHATLOG"] = []
-
     response = QUESTIONNAIRE[
         session["QUESTIONS_TO_ASK"][session["MAIN_QUESTION_COUNT"]]
     ]
@@ -457,7 +439,6 @@ def get_main_question():
     session["MAIN_QUESTION_COUNT"] += 1
     session["FOLLOWUP_QUESTION_COUNT"] = 0
     session["CURRENT_QUESTION"] = response
-
     return response
 
 
@@ -518,7 +499,7 @@ INTERVIEW_SEQUENCE["DYNAMIC_PROBING"] = [
     get_conclusion,
 ]
 
-# Now we adjust the INTERVIEW_SEQUENCE to use get_next_background_question
+# Now we adjust the INTERVIEW SEQUENCE to use get_next_background_question
 INTERVIEW_SEQUENCE["ACTIVE_LISTENER"] = [
     get_next_background_question,  # This will call the next background question
     get_next_background_question,
@@ -540,12 +521,12 @@ INTERVIEW_SEQUENCE["ACTIVE_LISTENER"] = [
 
 # we want to have a function that we can wait on for retry logic
 def next_step():
-    print("INTERACTION_COUNT: ", session["INTERACTION_COUNT"])
     if session["INTERACTION_COUNT"] < len(
-        
         INTERVIEW_SEQUENCE[session["INTERVIEW_TYPE"]]
     ):
-        print("check")
+        print("INTERVIEW TYPE: ", session["INTERVIEW_TYPE"])
+        print("INTERACTION COUNT: ", session["INTERACTION_COUNT"])
+        print("next step: ")
         return INTERVIEW_SEQUENCE[session["INTERVIEW_TYPE"]][
             session["INTERACTION_COUNT"]
         ]()
@@ -560,13 +541,6 @@ def next_step():
     )
 
 
-def test():
-    n = random.randint(0, 10)
-    if n < 8:
-        raise Exception("test")
-    return "test"
-
-
 @app.route("/chat", methods=["POST"])
 def get_data():
     if session["PARTICIPANT_ID"] is None:
@@ -576,7 +550,6 @@ def get_data():
 
     data = request.get_json()
     user_input = data.get("data")
-    print("input: ", user_input)
     session["ANSWER_ID"] = add_answer_to_db(user_input)
     add_text_to_chatlog(user_input, "USER")
 
@@ -597,7 +570,7 @@ def get_data():
         )
     # We capture the member check response
     if (
-        session["INTERACTION_COUNT"] == 6
+        session["INTERACTION_COUNT"] == 9
         and session["INTERVIEW_TYPE"] == "ACTIVE_LISTENER"
     ):
         session["MEMBER_CHECK_ANSWER"] = user_input
@@ -637,7 +610,6 @@ def get_data():
     add_text_to_chatlog(response, "INTERVIEWER")
     # Gets reset to empty string after each main question
     session["RECENT_CHATLOG"].append("{}: {}".format("INTERVIEWER", response))
-
     return {"response": True, "message": response}
 
 

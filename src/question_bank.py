@@ -1,5 +1,3 @@
-
-
 QUESTIONNAIRE = {}
 QUESTIONNAIRE[
     0
