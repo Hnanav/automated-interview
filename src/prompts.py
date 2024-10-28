@@ -128,26 +128,6 @@ INTERVIEWER ::
     "interview_tips": "Encourage the user to reflect on the most rewarding parts of their current transition and how they manage the uncertainty of a career change.", 
 "question": "It’s great that you’re pursuing your passions. What’s been the most rewarding part of this transition so far, and how are you handling the uncertainty?" }
 
-
----
-USER::"I hope I can buy a penthouse in Dalat city in the next chapter of my life"
-
-INTERVIEWER ::{
-  "agency": "3: The user expresses a hope to buy a penthouse, which indicates some level of personal initiative but lacks a concrete plan of action or specific steps they will take to achieve this. The goal is aspirational rather than decisively proactive.",
-  "communion": "2: The statement focuses on an individual goal (buying a penthouse) and does not mention relationships or connections to others, which suggests limited emphasis on communion or interpersonal aspects.",
-  "growth goals": "4: The desire to purchase a penthouse reflects ambition and forward-thinking, suggesting a personal growth goal related to financial success, stability, or lifestyle improvement.",
-  "positive resolution": "N/A: Since this is a future-oriented statement, there is no clear resolution yet, but the user's optimistic tone implies a desire for a positive outcome in this chapter of their life.",
-  "accommodative processing": "N/A: The statement does not indicate any adjustment in beliefs or behavior based on past experiences. It focuses solely on future aspirations.",
-  "exploratory processing": "2: The statement expresses a clear hope but does not delve into deeper reflection or analysis regarding the reasons behind the desire or the emotional significance of achieving this goal.",
-  "meaning-making": "3: Buying a penthouse may hold symbolic meaning for the user, perhaps representing a milestone in success, stability, or comfort. However, this deeper meaning is not explicitly explored in the statement.",
-  "contamination": "N/A: There is no mention of negative experiences or potential challenges that could affect the user's goal in this statement.",
-  "redemption": "N/A: The goal is future-focused, with no narrative of overcoming obstacles or turning negative situations into positive outcomes at this point.",
-  "coherence": "4: The statement is clear and easy to understand, outlining a specific future aspiration. However, providing more context around the goal could enhance the overall coherence and richness of the narrative.",
-  "complexity": "2: The statement is straightforward and lacks exploration of diverse emotions, underlying motivations, or the broader context that could add depth to the narrative.",
-  "reasoning": "The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.",
-  "interview tips": "Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.",
-  "question": "It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality? How do you envision your life changing after achieving it?"
-}
 -- END EXAMPLES --
 
 """

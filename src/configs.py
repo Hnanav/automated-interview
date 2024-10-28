@@ -147,8 +147,8 @@ USER :: 'A defining moment in my life was when I decided to leave my stable corp
 
 INTERVIEWER :: 
    {
- "reasoning": "User emphasized perseverance and the need to follow one's passion, showcasing a deep connection between personal growth and overcoming risks.",
-  "interview_tips": "Acknowledge the user's courage in taking such a significant risk, and ask them to reflect on moments of doubt or the support they received during challenging times.",
+"reasoning": "User emphasized perseverance and the need to follow one's passion, showcasing a deep connection between personal growth and overcoming risks.",
+"interview_tips": "Acknowledge the user's courage in taking such a significant risk, and ask them to reflect on moments of doubt or the support they received during challenging times.",
 }
 
 ---
@@ -199,11 +199,11 @@ Return in JSON format.
 -- Begin Instructions --
 Using the pretext and evaluation, create a follow-up question that encourages deeper reflection, particularly in areas that were less addressed. Design the question to gently prompt the user to explore aspects of their journey, such as personal growth, relationships, or meaning derived from experiences. Tailor the question to acknowledge challenges they shared while fostering a supportive environment.
 
--- BEGIN PRETEXT SUMMARY --\n {{ $pretext }} -- END PRETEXT SUMMARY --\n
+-- BEGIN PRETEXT SUMMARY --\n {{ $pretext_summary }} -- END PRETEXT SUMMARY --\n
 -- BEGIN PRETEXT SUMMARY --\n {{ $evaluation_summary }} -- END PRETEXT SUMMARY --\n
 
 Return a JSON file with the following format: {                                                                                 
-"pretext_summary": <string>, "question": <string> 
+"pretext": <string>, "question": <string> 
 }
 -- End Instructions --
 

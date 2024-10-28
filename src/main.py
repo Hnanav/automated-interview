@@ -308,13 +308,14 @@ def keep_first_question(input_string):
 
 def engage_prober():
     global prober_depersonalized_skill
+    # Recent history là cuộc trò chuyện hiện tại không phải tất cả history
     recent_history = get_chat_history_as_string(recent_only=True)
     #Debug
     print("engage_prober is calling")
     print("Recent History:\n", recent_history)
     # Thay thế thông tin lịch sử gần đây vào kỹ năng
     prober_depersonalized_skill = prober_depersonalized_skill.replace("{{$recent_history}}", recent_history)
-    print("prober depersonalized skill: ", prober_depersonalized_skill)
+    print("Prober depersonalized skill: ", prober_depersonalized_skill)
     # Gọi API để nhận phản hồi từ mô-đun prober
     json_response = asyncio.run(get_module_response("prober_depersonalized"))
     
@@ -441,10 +442,8 @@ def get_main_question():
     session["CURRENT_QUESTION"] = response
     return response
 
-
 def get_global_active_listener():
     return engage_global_active_listener()
-
 
 def get_conclusion():
     if session["INTERVIEW_TYPE"] == "ACTIVE_LISTENER":

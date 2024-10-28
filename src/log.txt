@@ -1,0 +1,339 @@
+2024-10-28 13:58:24 - WARNING -  Attempting API call for module: 'prober_depersonalized'
+2024-10-28 13:58:27 - INFO -  Module name: prober_depersonalized | Response: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "```json\n{\n  \"agency\": \"3: The user expresses a hope to buy a penthouse, which indicates some level of personal initiative but lacks a concrete plan of action or specific steps they will take to achieve this. The goal is aspirational rather than decisively proactive.\",\n  \"communion\": \"2: The statement focuses on an individual goal (buying a penthouse) and does not mention relationships or connections to others, which suggests limited emphasis on communion or interpersonal aspects.\",\n  \"growth goals\": \"4: The desire to purchase a penthouse reflects ambition and forward-thinking, suggesting a personal growth goal related to financial success, stability, or lifestyle improvement.\",\n  \"positive resolution\": \"N/A: Since this is a future-oriented statement, there is no clear resolution yet, but the user's optimistic tone implies a desire for a positive outcome in this chapter of their life.\",\n  \"accommodative processing\": \"N/A: The statement does not indicate any adjustment in beliefs or behavior based on past experiences. It focuses solely on future aspirations.\",\n  \"exploratory processing\": \"2: The statement expresses a clear hope but does not delve into deeper reflection or analysis regarding the reasons behind the desire or the emotional significance of achieving this goal.\",\n  \"meaning-making\": \"3: Buying a penthouse may hold symbolic meaning for the user, perhaps representing a milestone in success, stability, or comfort. However, this deeper meaning is not explicitly explored in the statement.\",\n  \"contamination\": \"N/A: There is no mention of negative experiences or potential challenges that could affect the user's goal in this statement.\",\n  \"redemption\": \"N/A: The goal is future-focused, with no narrative of overcoming obstacles or turning negative situations into positive outcomes at this point.\",\n  \"coherence\": \"4: The statement is clear and easy to understand, outlining a specific future aspiration. However, providing more context around the goal could enhance the overall coherence and richness of the narrative.\",\n  \"complexity\": \"2: The statement is straightforward and lacks exploration of diverse emotions, underlying motivations, or the broader context that could add depth to the narrative.\",\n  \"reasoning\": \"The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.\",\n  \"interview tips\": \"Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.\",\n  \"question\": \"It\u2019s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality? How do you envision your life changing after achieving it?\"\n}\n```"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 4083,
+        "candidates_token_count": 605,
+        "total_token_count": 4688
+      }
+    }),
+)
+2024-10-28 13:58:27 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added model response to DB.
+2024-10-28 13:58:27 - DEBUG -  Response type: <class 'str'>, Response: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+2024-10-28 13:58:27 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added question to DB | question_id: 162
+2024-10-28 13:58:27 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+127.0.0.1 - - [28/Oct/2024 13:58:27] "POST /chat HTTP/1.1" 200 -
+2024-10-28 14:01:12 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added answer to DB | answer_id: 196
+2024-10-28 14:01:12 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: Planning the Journey: I'd start by setting aside time and resources for the trip, researching the best seasons to visit, and identifying must-see spots like the pine forests, waterfalls, and flower gardens.    
+INTERVIEW TYPE:  ACTIVE_LISTENER
+INTERACTION COUNT:  6
+next step:
+engage_prober is calling
+Recent History:
+ INTERVIEWER: Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question.Whether they are religious or not,
+many people report that they have had experiences in their lives where they felt a sense of
+the transcendent or sacred, a sense of God or some almighty or ultimate force, or a
+feeling of oneness with nature, the world, or the universe. Thinking back on your entire
+life, please identify an episode or moment in which you felt something like this. This
+might be an experience that occurred within the context of your own religious tradition, if
+you have one, or it may be a spiritual or mystical experience of any kind. Please describe
+this transcendent experience in detail. What happened, where and when, who was
+involved, and what were you thinking and feeling? Also, what does this memory say
+about you or your life?
+USER: There was a moment during a quiet hike in the mountains at sunrise—just me, the trees, and the first light breaking over the horizon. The air was crisp, and everything was still. As I reached a clearing, the whole valley below was bathed in a golden glow, and for a second, it felt like time stopped. I felt incredibly small and yet deeply connected to everything around me, as if I was part of something much bigger. I wasn't thinking, just feeling—completely at peace, with a sense of awe and gratitude.
+
+It felt like a reminder that sometimes, it's the simplest moments that bring the deepest clarity, and that there's beauty in just being. It makes me think that I value those moments of connection and calm, even in a world that often feels rushed and busy.
+INTERVIEWER: That’s a wonderful goal to have! What makes Dalat city so special for you?
+USER: Dalat City would feel special because of its unique blend of tranquility and charm. The cool, refreshing mountain air would be a soothing escape from the hustle of busier cities. I’d probably love the lush pine forests, misty mornings, and colorful flower gardens—perfect spots for reflection and peace. The French colonial architecture would add a romantic touch, giving the city a quaint, nostalgic feel. Plus, the bustling night markets with fresh produce and local street food would make it feel both lively and cozy. It seems like a place where nature, culture, and a slower pace of life come together beautifully.
+INTERVIEWER: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+USER: Planning the Journey: I'd start by setting aside time and resources for the trip, researching the best seasons to visit, and identifying must-see spots like the pine forests, waterfalls, and flower gardens.
+prober depersonalized skill:
+You are going to return a JSON file that contains a follow-up question to a
+user's answer based on the instructions and chat history provided below.
+
+-- Begin Instructions --
+
+Firstly, thoroughly analyze the chat history provided. Take note of the topics discussed, the user’s tone, and the specific phrases they used. Understanding the context is crucial for crafting a relevant follow-up question. Look for emotional cues, key phrases, or any significant details that the user emphasized.
+
+Secondly, summarize the main topics and themes from the conversation in 2-3 sentences. Reflect the user’s tone and show empathy using brief paraphrasing and phrases like “I see” or “That’s interesting.” Use the user's name and express gratitude for their insights to foster a positive exchange.
+
+Thirdly, evaluate Narrative Variables:
+Score the user's engagement on key variables (1-5 scale). If not mentioned, mark as "not provided."
+The variables to assess in order to craft the follow-up question are:
+Agency: User’s sense of control over experiences.
+Communion: Emphasis on relationships or connectedness.
+Growth Goals: Focus on self-development.
+Positive Resolution: Ability to achieve peace with a challenging event.
+Accommodative Processing: Shifts in worldview or self-perception.
+Exploratory Processing: Effort to reflect on experiences.
+Meaning-Making: Deriving meaning from events.
+Contamination: Transition from positive to negative outcomes.
+Redemption: Transition from negative to positive outcomes.
+Coherence: Narrative clarity and context.
+Complexity: Depth of thought and engagement with the narrative.
+Use the scores to create a question that encourages deeper reflection on the user’s experiences.
+Focus on guiding the user to explore less addressed areas, aiming for a holistic view.
+Frame the question to prompt insights into their personal growth, relationships, or meaning derived from experiences.
+Acknowledge difficulties faced and express appreciation for sharing to foster a supportive environment.
+
+-- End Instructions --
+
+
+Here's the chat history, where INTERVIEWER is the interviewer, and USER is the
+user, separated with ';;':
+
+-- BEGIN CHAT HISTORY --
+ INTERVIEWER: Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question.Whether they are religious or not,
+many people report that they have had experiences in their lives where they felt a sense of
+the transcendent or sacred, a sense of God or some almighty or ultimate force, or a
+feeling of oneness with nature, the world, or the universe. Thinking back on your entire
+life, please identify an episode or moment in which you felt something like this. This
+might be an experience that occurred within the context of your own religious tradition, if
+you have one, or it may be a spiritual or mystical experience of any kind. Please describe
+this transcendent experience in detail. What happened, where and when, who was
+involved, and what were you thinking and feeling? Also, what does this memory say
+about you or your life?
+USER: There was a moment during a quiet hike in the mountains at sunrise—just me, the trees, and the first light breaking over the horizon. The air was crisp, and everything was still. As I reached a clearing, the whole valley below was bathed in a golden glow, and for a second, it felt like time stopped. I felt incredibly small and yet deeply connected to everything around me, as if I was part of something much bigger. I wasn't thinking, just feeling—completely at peace, with a sense of awe and gratitude.
+
+It felt like a reminder that sometimes, it's the simplest moments that bring the deepest clarity, and that there's beauty in just being. It makes me think that I value those moments of connection and calm, even in a world that often feels rushed and busy. -- END CHAT HISTORY --
+
+
+Return a JSON file with the following format: {
+    "agency": <string>, "communion": <string>,"growth goals": <string>,"positive resolution": <string>, "accommodative processing": <string>, "exploratory processing": <string>, "meaning-making": <string>, "contamination": <string>, "redemption":<string>, "coherence":<string>, "complexity":<string>,    
+
+"reasoning": <string>, "interview tips", "question": <string>
+}
+
+
+2024-10-28 14:01:12 - WARNING -  Attempting API call for module: 'prober_depersonalized'
+2024-10-28 14:01:14 - INFO -  Module name: prober_depersonalized | Response: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "```json\n{\n  \"agency\": \"3: The user expressed a hope to buy a penthouse, which indicates some level of personal initiative but lacks a concrete plan of action or specific steps they will take to achieve this. The goal is aspirational rather than decisively proactive.\",\n  \"communion\": \"2: The statement focuses on an individual goal (buying a penthouse) and does not mention relationships or connections to others, which suggests limited emphasis on communion or interpersonal aspects.\",\n  \"growth goals\": \"4: The desire to purchase a penthouse reflects ambition and forward-thinking, suggesting a personal growth goal related to financial success, stability, or lifestyle improvement.\",\n  \"positive resolution\": \"N/A: Since this is a future-oriented statement, there is no clear resolution yet, but the user's optimistic tone implies a desire for a positive outcome in this chapter of their life.\",\n  \"accommodative processing\": \"N/A: The statement does not indicate any adjustment in beliefs or behavior based on past experiences. It focuses solely on future aspirations.\",\n  \"exploratory processing\": \"2: The statement expresses a clear hope but does not delve into deeper reflection or analysis regarding the reasons behind the desire or the emotional significance of achieving this goal.\",\n  \"meaning-making\": \"3: Buying a penthouse may hold symbolic meaning for the user, perhaps representing a milestone in success, stability, or comfort. However, this deeper meaning is not explicitly explored in the statement.\",\n  \"contamination\": \"N/A: There is no mention of negative experiences or potential challenges that could affect the user's goal in this statement.\",\n  \"redemption\": \"N/A: The goal is future-focused, with no narrative of overcoming obstacles or turning negative situations into positive outcomes at this point.\",\n  \"coherence\": \"4: The statement is clear and easy to understand, outlining a specific future aspiration. However, providing more context around the goal could enhance the overall coherence and richness of the narrative.\",\n  \"complexity\": \"2: The statement is straightforward and lacks exploration of diverse emotions, underlying motivations, or the broader context that could add depth to the narrative.\",\n  \"reasoning\": \"The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.\",\n  \"interview tips\": \"Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.\",\n  \"question\": \"That's a wonderful aspiration!  It sounds like you have a clear vision for your future. What aspects of Dalat city specifically appeal to you, and what do you envision achieving in that next chapter of your life?\"\n}\n```"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 4083,
+        "candidates_token_count": 606,
+        "total_token_count": 4689
+      }
+    }),
+)
+2024-10-28 14:01:15 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added model response to DB.
+2024-10-28 14:01:15 - DEBUG -  Response type: <class 'str'>, Response: That's a wonderful aspiration!  It sounds like you have a clear vision for your future. What aspects of Dalat city specifically appeal to you, and what do you envision achieving in that next chapter of your life?
+2024-10-28 14:01:15 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added question to DB | question_id: 163
+2024-10-28 14:01:15 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: That's a wonderful aspiration!  It sounds like you have a clear vision for your future. What aspects of Dalat city specifically appeal to you, and what do you envision achieving in that next chapter of your life?
+127.0.0.1 - - [28/Oct/2024 14:01:15] "POST /chat HTTP/1.1" 200 -
+2024-10-28 14:08:32 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added answer to DB | answer_id: 197
+2024-10-28 14:08:32 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: I’d say the cool climate and lush nature are what draw me in the most—the fresh mountain air, pine forests, and mist-covered hills feel like a perfect escape. The blend of French colonial architecture with Vietnamese culture creates a unique and charming atmosphere, making the city feel both cozy and culturally rich. The city’s vibrant flower gardens, like the Valley of Love and the colorful local markets, add a sense of vibrancy and life that I'd love to explore.
+INTERVIEW TYPE:  ACTIVE_LISTENER
+INTERACTION COUNT:  7
+next step:
+engage_prober is calling
+Recent History:
+ INTERVIEWER: Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question.Whether they are religious or not,
+many people report that they have had experiences in their lives where they felt a sense of
+the transcendent or sacred, a sense of God or some almighty or ultimate force, or a
+feeling of oneness with nature, the world, or the universe. Thinking back on your entire
+life, please identify an episode or moment in which you felt something like this. This
+might be an experience that occurred within the context of your own religious tradition, if
+you have one, or it may be a spiritual or mystical experience of any kind. Please describe
+this transcendent experience in detail. What happened, where and when, who was
+involved, and what were you thinking and feeling? Also, what does this memory say
+about you or your life?
+USER: There was a moment during a quiet hike in the mountains at sunrise—just me, the trees, and the first light breaking over the horizon. The air was crisp, and everything was still. As I reached a clearing, the whole valley below was bathed in a golden glow, and for a second, it felt like time stopped. I felt incredibly small and yet deeply connected to everything around me, as if I was part of something much bigger. I wasn't thinking, just feeling—completely at peace, with a sense of awe and gratitude.
+
+It felt like a reminder that sometimes, it's the simplest moments that bring the deepest clarity, and that there's beauty in just being. It makes me think that I value those moments of connection and calm, even in a world that often feels rushed and busy.
+INTERVIEWER: That’s a wonderful goal to have! What makes Dalat city so special for you?
+USER: Dalat City would feel special because of its unique blend of tranquility and charm. The cool, refreshing mountain air would be a soothing escape from the hustle of busier cities. I’d probably love the lush pine forests, misty mornings, and colorful flower gardens—perfect spots for reflection and peace. The French colonial architecture would add a romantic touch, giving the city a quaint, nostalgic feel. Plus, the bustling night markets with fresh produce and local street food would make it feel both lively and cozy. It seems like a place where nature, culture, and a slower pace of life come together beautifully.
+INTERVIEWER: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+USER: Planning the Journey: I'd start by setting aside time and resources for the trip, researching the best seasons to visit, and identifying must-see spots like the pine forests, waterfalls, and flower gardens.
+INTERVIEWER: That's a wonderful aspiration!  It sounds like you have a clear vision for your future. What aspects of Dalat city specifically appeal to you, and what do you envision achieving in that next chapter of your life?
+USER: I’d say the cool climate and lush nature are what draw me in the most—the fresh mountain air, pine forests, and mist-covered hills feel like a perfect escape. The blend of French colonial architecture with Vietnamese culture creates a unique and charming atmosphere, making the city feel both cozy and culturally rich. The city’s vibrant flower gardens, like the Valley of Love and the colorful local markets, add a sense of vibrancy and life that I'd love to explore.
+prober depersonalized skill:
+You are going to return a JSON file that contains a follow-up question to a
+user's answer based on the instructions and chat history provided below.
+
+-- Begin Instructions --
+
+Firstly, thoroughly analyze the chat history provided. Take note of the topics discussed, the user’s tone, and the specific phrases they used. Understanding the context is crucial for crafting a relevant follow-up question. Look for emotional cues, key phrases, or any significant details that the user emphasized.
+
+Secondly, summarize the main topics and themes from the conversation in 2-3 sentences. Reflect the user’s tone and show empathy using brief paraphrasing and phrases like “I see” or “That’s interesting.” Use the user's name and express gratitude for their insights to foster a positive exchange.
+
+Thirdly, evaluate Narrative Variables:
+Score the user's engagement on key variables (1-5 scale). If not mentioned, mark as "not provided."
+The variables to assess in order to craft the follow-up question are:
+Agency: User’s sense of control over experiences.
+Communion: Emphasis on relationships or connectedness.
+Growth Goals: Focus on self-development.
+Positive Resolution: Ability to achieve peace with a challenging event.
+Accommodative Processing: Shifts in worldview or self-perception.
+Exploratory Processing: Effort to reflect on experiences.
+Meaning-Making: Deriving meaning from events.
+Contamination: Transition from positive to negative outcomes.
+Redemption: Transition from negative to positive outcomes.
+Coherence: Narrative clarity and context.
+Complexity: Depth of thought and engagement with the narrative.
+Use the scores to create a question that encourages deeper reflection on the user’s experiences.
+Focus on guiding the user to explore less addressed areas, aiming for a holistic view.
+Frame the question to prompt insights into their personal growth, relationships, or meaning derived from experiences.
+Acknowledge difficulties faced and express appreciation for sharing to foster a supportive environment.
+
+-- End Instructions --
+
+
+Here's the chat history, where INTERVIEWER is the interviewer, and USER is the
+user, separated with ';;':
+
+-- BEGIN CHAT HISTORY --
+ INTERVIEWER: Thank you for sharing. I'm glad I got to learn more about you, I'm going to start with the first question.Whether they are religious or not,
+many people report that they have had experiences in their lives where they felt a sense of
+the transcendent or sacred, a sense of God or some almighty or ultimate force, or a
+feeling of oneness with nature, the world, or the universe. Thinking back on your entire
+life, please identify an episode or moment in which you felt something like this. This
+might be an experience that occurred within the context of your own religious tradition, if
+you have one, or it may be a spiritual or mystical experience of any kind. Please describe
+this transcendent experience in detail. What happened, where and when, who was
+involved, and what were you thinking and feeling? Also, what does this memory say
+about you or your life?
+USER: There was a moment during a quiet hike in the mountains at sunrise—just me, the trees, and the first light breaking over the horizon. The air was crisp, and everything was still. As I reached a clearing, the whole valley below was bathed in a golden glow, and for a second, it felt like time stopped. I felt incredibly small and yet deeply connected to everything around me, as if I was part of something much bigger. I wasn't thinking, just feeling—completely at peace, with a sense of awe and gratitude.
+
+It felt like a reminder that sometimes, it's the simplest moments that bring the deepest clarity, and that there's beauty in just being. It makes me think that I value those moments of connection and calm, even in a world that often feels rushed and busy. -- END CHAT HISTORY --
+
+
+Return a JSON file with the following format: {
+    "agency": <string>, "communion": <string>,"growth goals": <string>,"positive resolution": <string>, "accommodative processing": <string>, "exploratory processing": <string>, "meaning-making": <string>, "contamination": <string>, "redemption":<string>, "coherence":<string>, "complexity":<string>,    
+
+"reasoning": <string>, "interview tips", "question": <string>
+}
+
+2024-10-28 14:08:32 - WARNING -  Attempting API call for module: 'prober_depersonalized'
+2024-10-28 14:08:35 - INFO -  Module name: prober_depersonalized | Response: response:
+GenerateContentResponse(
+    done=True,
+    iterator=None,
+    result=protos.GenerateContentResponse({
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "```json\n{\n  \"agency\": \"3: The user expresses a hope to buy a penthouse, which indicates some level of personal initiative but lacks a concrete plan of action or specific steps they will take to achieve this. The goal is aspirational rather than decisively proactive.\",\n  \"communion\": \"2: The statement focuses on an individual goal (buying a penthouse) and does not mention relationships or connections to others, which suggests limited emphasis on communion or interpersonal aspects.\",\n  \"growth goals\": \"4: The desire to purchase a penthouse reflects ambition and forward-thinking, suggesting a personal growth goal related to financial success, stability, or lifestyle improvement.\",\n  \"positive resolution\": \"N/A: Since this is a future-oriented statement, there is no clear resolution yet, but the user's optimistic tone implies a desire for a positive outcome in this chapter of their life.\",\n  \"accommodative processing\": \"N/A: The statement does not indicate any adjustment in beliefs or behavior based on past experiences. It focuses solely on future aspirations.\",\n  \"exploratory processing\": \"2: The statement expresses a clear hope but does not delve into deeper reflection or analysis regarding the reasons behind the desire or the emotional significance of achieving this goal.\",\n  \"meaning-making\": \"3: Buying a penthouse may hold symbolic meaning for the user, perhaps representing a milestone in success, stability, or comfort. However, this deeper meaning is not explicitly explored in the statement.\",\n  \"contamination\": \"N/A: There is no mention of negative experiences or potential challenges that could affect the user's goal in this statement.\",\n  \"redemption\": \"N/A: The goal is future-focused, with no narrative of overcoming obstacles or turning negative situations into positive outcomes at this point.\",\n  \"coherence\": \"4: The statement is clear and easy to understand, outlining a specific future aspiration. However, providing more context around the goal could enhance the overall coherence and richness of the narrative.\",\n  \"complexity\": \"2: The statement is straightforward and lacks exploration of diverse emotions, underlying motivations, or the broader context that could add depth to the narrative.\",\n  \"reasoning\": \"The user's statement highlights a desire for future financial or lifestyle achievement, but the reasoning behind why this specific goal is important is not deeply explored. There could be more reflection on what buying a penthouse represents in terms of personal fulfillment or life aspirations.\",\n  \"interview tips\": \"Encourage the user to reflect on the significance of the penthouse in their future plans. Ask them to explore why this goal matters to them and how it fits into their broader vision for their life.\",\n  \"question\": \"It\u2019s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality? How do you envision your life changing after achieving it?\"\n}\n```"
+              }
+            ],
+            "role": "model"
+          },
+          "finish_reason": "STOP",
+          "index": 0,
+          "safety_ratings": [
+            {
+              "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HATE_SPEECH",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_HARASSMENT",
+              "probability": "NEGLIGIBLE"
+            },
+            {
+              "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+              "probability": "NEGLIGIBLE"
+            }
+          ]
+        }
+      ],
+      "usage_metadata": {
+        "prompt_token_count": 4083,
+        "candidates_token_count": 605,
+        "total_token_count": 4688
+      }
+    }),
+)
+2024-10-28 14:08:35 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added model response to DB.
+2024-10-28 14:08:35 - DEBUG -  Response type: <class 'str'>, Response: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+2024-10-28 14:08:35 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added question to DB | question_id: 164
+2024-10-28 14:08:35 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: It’s inspiring that you have such a clear vision for the next chapter of your life! What steps are you thinking of taking to make this dream a reality?
+127.0.0.1 - - [28/Oct/2024 14:08:35] "POST /chat HTTP/1.1" 200 -
+2024-10-28 14:09:44 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added answer to DB | answer_id: 198
+2024-10-28 14:09:44 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: 1. Setting Clear Intentions
+2. Budgeting and Saving
+3. Research and Planning
+4. Booking the Essentials
+5. Embracing Minimalism
+6. Learning Basic Vietnamese
+7. Staying Connected with Nature
+INTERVIEW TYPE:  ACTIVE_LISTENER
+INTERACTION COUNT:  8
+next step:
+2024-10-28 14:09:44 - DEBUG -  Response type: <class 'str'>, Response: Thank you for your insights. I'm going to ask you about a different value now.Please describe an event in your life in which you displayed wisdom.
+The episode might be one in which you acted or interacted in an especially wise way or
+provided wise counsel or advice, made a wise decision, or otherwise behaved in a
+particularly wise manner. What happened, where and when, who was involved, and what
+were you thinking and feeling? Also, what does this memory say about you and your
+life?
+2024-10-28 14:09:44 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added question to DB | question_id: 165
+2024-10-28 14:09:44 - DEBUG -  CHATLOG_ID: 60 | PARTICIPANT ID: test | Added text to chatlog: Thank you for your insights. I'm going to ask you about a different value now.Please describe an event in your life in which you displayed wisdom.
+The episode might be one in which you acted or interacted in an especially wise way or
+provided wise counsel or advice, made a wise decision, or otherwise behaved in a
+particularly wise manner. What happened, where and when, who was involved, and what
+were you thinking and feeling? Also, what does this memory say about you and your
+life?

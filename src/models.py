@@ -112,6 +112,7 @@ class AIModel:
         
         try:
             # Call the chat client and get a response
+            print("du ma m")
             model = self.chat_client.GenerativeModel('gemini-1.5-flash')  # Ensure to use your specific model
             response = await model.generate_content(prompt)
 

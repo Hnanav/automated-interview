@@ -69,11 +69,13 @@ async def get_module_response(module_name, no_api_calls=False):
         return f"We invoked {module_name}"
     response = None
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash') 
+        model = genai.GenerativeModel('gemini-1.5-pro-latest') 
         if module_name == "prober_depersonalized":
-            response = model.generate_content(prober_depersonalized_skill)
+            response = model.generate_content(prober_depersonalized_skill, 
+                )
         elif module_name == "global_active_listener":
-            response = model.generate_content(active_listener_global_skill)
+            response = model.generate_content(active_listener_global_skill,
+                                              )
         
         logger.info("Module name: %s | Response: %s", module_name, response)
         
